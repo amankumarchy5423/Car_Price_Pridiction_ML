@@ -1,0 +1,12 @@
+categorical:
+- Brand
+- Fuel Type
+- Transmission
+- Condition
+- Model
+numerical:
+- Year
+- Engine Size
+- Mileage
+output:
+- Price
