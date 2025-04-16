@@ -2,3 +2,8 @@ dvc-s3
 pandas
 scikit-learn
 matplotlib
+pymongo
+setuptools
+dotenv
+
+-e .
