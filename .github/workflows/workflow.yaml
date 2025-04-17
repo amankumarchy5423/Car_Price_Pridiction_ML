@@ -1,0 +1,40 @@
+name: workflow
+
+on:
+ push:
+  branches:
+   - main
+  paths-ignore:
+   - README.md
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+ build:
+  name: Build
+  runs-on: ubuntu-latest
+  steps:
+   - name: Checkout code
+     uses: actions/checkout@v3
+
+   - name: Lint code
+     run: echo "Linting code..."
+
+   - name: Run unit test
+     run: echo "Running unit test..."
+
+   - name: setup python
+     uses: actions/setup-python@v4
+     with:
+      python-version: '3.11'
+    
+   - name: install dependencies
+     run: |
+      pip install --upgrade pip
+      pip install -r requirement.txt
+
+   - name: run main
+     run: |
+      python main.py
