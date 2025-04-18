@@ -20,3 +20,11 @@ class data_transformation_config:
             my_utils.PREPEOCESSOR_MODEL
         )
         self.column_yaml :str = 'columns.yaml'
+
+
+class model_train_config:
+    def __init__(self):
+        self.model_train_dir : str = os.path.join(my_utils.ARTIFACT_DIR,
+                                                  my_utils.MODEL_TRAIN_DIR)
+        self.param_dir : str = os.path.join(self.model_train_dir,'model_param.yaml')
+        self.model_accuracy_thresold = 6.52

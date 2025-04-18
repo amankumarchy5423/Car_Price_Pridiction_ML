@@ -179,3 +179,4 @@ myvenv/
 /data
 /Artifact
 /my_model
+mlruns/

@@ -6,5 +6,6 @@ pymongo
 setuptools
 dotenv
 exception
+# setuptools==65.5.0
 
--e .
+# -e .

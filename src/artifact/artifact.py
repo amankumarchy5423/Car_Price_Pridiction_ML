@@ -9,5 +9,5 @@ class data_ingestion:
 
 @dataclass
 class data_transformation_artifact:
-    data_transformation_artifact : str
-    preprocessor_model : str
+    transformed_train_file : str
+    transformed_test_file : str

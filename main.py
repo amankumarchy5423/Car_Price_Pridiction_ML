@@ -5,6 +5,8 @@ from src.component.data_transformation import DataTransformation
 from src.artifact.artifact import data_transformation_artifact
 from src.config.config import data_transformation_config
 
+from src.pipeline.train_pipe import TrainPipeline
+
 import sys
 
 
@@ -12,10 +14,8 @@ def main():
     try:
         my_logger.info("<<< MAIN STARTED >>>")
 
-        config_obj = data_transformation_config()
-        # artifact_obj = data_transformation_artifact()
-        data_transformation = DataTransformation(data_transformation_config=config_obj)
-        data_transformation.initiate_data_transformation()
+        obj_train_pipe = TrainPipeline()
+        obj_train_pipe.initiate_train_pipe()
 
         my_logger.info("<<< MAIN ENDTED >>>")
     except Exception as e :
