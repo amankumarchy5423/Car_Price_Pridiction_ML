@@ -6,6 +6,8 @@ pymongo
 setuptools
 dotenv
 exception
+dagshub
+flask
 # setuptools==65.5.0
 
 # -e .

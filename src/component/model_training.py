@@ -7,6 +7,7 @@ from src.artifact.artifact import data_transformation_artifact
 import pandas as pd
 import numpy as np
 import yaml
+import joblib
 import os,sys
 
 from sklearn.linear_model import LinearRegression,ElasticNet,Ridge,Lasso
@@ -121,6 +122,9 @@ class ModelTrain :
                                 best_model_name = model_name
                                 best_run_id = child_run.info.run_id
                                 my_logger.info(f"Save if this is the best model so far{best_model_name}")
+
+                joblib.dump(best_model,'my_model/ml_model.pkl')
+
 
             if best_run_id is None:
                 raise MyException("No model met the accuracy threshold; nothing to register.", sys)

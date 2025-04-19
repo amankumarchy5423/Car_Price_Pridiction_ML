@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Information Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">Car Information Form</h2>
+
+  <form action="/predict.html" method="post">
+    <label for="car_id">Car ID</label>
+    <input type="text" id="car_id" name="Car_ID" required>
+
+    <label for="brand">Brand</label>
+    <select id="brand" name="Brand" required>
+      <option value="">Select a brand</option>
+      <option value="Tesla">Tesla</option>
+      <option value="BMW">BMW</option>
+      <option value="Audi">Audi</option>
+      <option value="Ford">Ford</option>
+      <option value="Honda">Honda</option>
+      <option value="Mercedes">Mercedes</option>
+      <option value="Toyota">Toyota</option>
+    </select>
+
+    <label for="model">Model</label>
+    <input type="text" id="model" name="Model" required>
+
+    <label for="year">Year</label>
+    <input type="number" id="year" name="Year" min="1900" max="2099" required>
+
+    <label for="engine_size">Engine Size (L)</label>
+    <input type="number" step="0.1" id="engine_size" name="Engine_Size" required>
+
+    <label for="fuel_type">Fuel Type</label>
+    <select id="fuel_type" name="Fuel_Type" required>
+      <option value="">Select fuel type</option>
+      <option value="Petrol">Petrol</option>
+      <option value="Electric">Electric</option>
+      <option value="Diesel">Diesel</option>
+      <option value="Hybrid">Hybrid</option>
+    </select>
+
+    <label for="transmission">Transmission</label>
+    <select id="transmission" name="Transmission" required>
+      <option value="">Select transmission</option>
+      <option value="Manual">Manual</option>
+      <option value="Automatic">Automatic</option>
+    </select>
+
+    <label for="mileage">Mileage (km)</label>
+    <input type="number" id="mileage" name="Mileage" required>
+
+    <label for="condition">Condition</label>
+    <select id="condition" name="Condition" required>
+      <option value="">Select condition</option>
+      <option value="New">New</option>
+      <option value="Used">Used</option>
+      <option value="Like New">Like New</option>
+    </select>
+     
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

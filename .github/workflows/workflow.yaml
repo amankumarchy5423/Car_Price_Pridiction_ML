@@ -37,4 +37,5 @@ jobs:
 
    - name: run main
      run: |
+      set -e
       python main.py
