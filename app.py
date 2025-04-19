@@ -21,6 +21,7 @@ def predict():
 
             # Step 2: Convert to DataFrame
             df = pd.DataFrame([data])  # ✅ Wrap data in a list
+            df['Price'] = 0
             print(f"[DEBUG] Converted to DataFrame:\n{df}")
             my_logger.info(f"DataFrame created for prediction:\n{df}")
 
@@ -41,4 +42,4 @@ def predict():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port= 5000, host='0.0.0.0')

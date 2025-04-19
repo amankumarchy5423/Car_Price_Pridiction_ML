@@ -107,6 +107,9 @@ class DataTransformation:
             preprocessor.fit(train_data[input_columns])
             my_logger.info("preprocessing pipeline is fitted.")
 
+            os.makedirs(os.path.dirname(self.config.preprocessor_model),exist_ok=True)
+            joblib.dump(preprocessor,self.config.preprocessor_model)
+            my_logger.info("preprocessor model is dumped ...")
             with mlflow.start_run():
                 mlflow.sklearn.log_model(preprocessor,"model",registered_model_name = "preprocessor")
                 latest_version = client.get_latest_versions(name = 'preprocessor',stages=['None'])[-1].version
@@ -119,9 +122,6 @@ class DataTransformation:
             mlflow.end_run()
 
 
-            os.makedirs(os.path.dirname(self.config.preprocessor_model),exist_ok=True)
-            joblib.dump(preprocessor,self.config.preprocessor_model)
-            my_logger.info("preprocessor model is dumped ...")
 
 
             my_logger.info("_____ data_preprocessing ended ______")
