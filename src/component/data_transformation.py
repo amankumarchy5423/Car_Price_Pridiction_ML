@@ -16,11 +16,7 @@ from sklearn.pipeline import Pipeline,make_pipeline
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
 from sklearn.impute import SimpleImputer,KNNImputer
 
-import dagshub
-dagshub.init(repo_owner='amankumarchy5423', repo_name='complete-ml-pipeline', mlflow=True)
 
-import mlflow
-client = mlflow.MlflowClient()
 
 
 
@@ -109,17 +105,9 @@ class DataTransformation:
 
             os.makedirs(os.path.dirname(self.config.preprocessor_model),exist_ok=True)
             joblib.dump(preprocessor,self.config.preprocessor_model)
+
             my_logger.info("preprocessor model is dumped ...")
-            with mlflow.start_run():
-                mlflow.sklearn.log_model(preprocessor,"model",registered_model_name = "preprocessor")
-                latest_version = client.get_latest_versions(name = 'preprocessor',stages=['None'])[-1].version
-                client.transition_model_version_stage(
-                name="preprocessor",
-                version=latest_version,
-                stage="Production",
-                archive_existing_versions=True
-                  )
-            mlflow.end_run()
+            
 
 
 
@@ -191,7 +179,8 @@ class DataTransformation:
             my_logger.info("_____ initiate_data_transformation ended ______")
 
             return data_transformation_artifact(transformed_train_file=self.config.train_transform_data,
-                                                transformed_test_file=self.config.test_transform_data)
+                                                transformed_test_file=self.config.test_transform_data,
+                                                pre_model_path=self.config.preprocessor_model)
 
             
         except Exception as e:

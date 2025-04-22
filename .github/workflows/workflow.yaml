@@ -1,41 +1,45 @@
-name: workflow
+name: Run ML Pipeline  # This names the workflow
 
 on:
- push:
-  branches:
-   - main
-  paths-ignore:
-   - README.md
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - README.md
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
- build:
-  name: Build
-  runs-on: ubuntu-latest
-  steps:
-   - name: Checkout code
-     uses: actions/checkout@v3
+  build:
+    name: Build
+    runs-on: ubuntu-latest
 
-   - name: Lint code
-     run: echo "Linting code..."
+    env:  
+      DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
-   - name: Run unit test
-     run: echo "Running unit test..."
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-   - name: setup python
-     uses: actions/setup-python@v4
-     with:
-      python-version: '3.11'
-    
-   - name: install dependencies
-     run: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
+      - name: Lint code
+        run: echo "Linting code..."
 
-   - name: run main
-     run: |
-      set -e
-      python main.py
+      - name: Run unit test
+        run: echo "Running unit test..."
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run main.py
+        run: |
+          set -e
+          python main.py

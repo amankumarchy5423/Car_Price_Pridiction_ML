@@ -2,7 +2,7 @@ from src.logging.logger import my_logger
 from src.exception.project_exception import MyException
 from src.utils.my_utils.utils import evaluate
 from src.config.config import model_train_config
-from src.artifact.artifact import data_transformation_artifact
+from src.artifact.artifact import data_transformation_artifact,model_trainer_artifact
 
 import pandas as pd
 import numpy as np
@@ -59,6 +59,7 @@ class ModelTrain :
             params = {
                 'LR':{
                     'fit_intercept' : [True]},
+            
                 'Lasso' : {
         'alpha' :[1,3],
         'max_iter' : [1000,1200]
@@ -106,7 +107,7 @@ class ModelTrain :
 
                     for j in range(len(grid.cv_results_['params'])):
                         with mlflow.start_run(run_name=f"{model_name}_child_run", nested=True) as child_run:
-                            my_logger.info("model_name", model_name)
+                            # my_logger.info("model_name", model_name)
 
                             for param_name, param_value in grid.cv_results_['params'][j].items():
                                 mlflow.log_param(param_name, param_value)
@@ -123,41 +124,24 @@ class ModelTrain :
                                 best_run_id = child_run.info.run_id
                                 my_logger.info(f"Save if this is the best model so far{best_model_name}")
 
-                joblib.dump(best_model,'my_model/ml_model.pkl')
+                            r_score = accuracy
+                joblib.dump(best_model,self.config.ml_model_path)
 
 
             if best_run_id is None:
                 raise MyException("No model met the accuracy threshold; nothing to register.", sys)
 
-# model_uri = f"runs:/{best_run_id}/model"
 
             model_uri = f"runs:/{best_run_id}/model"
             registered_model_name = "Best-ml-model"
             my_logger.info("registering best model in model registery....")
 
-            mlflow.register_model(model_uri=model_uri, name=registered_model_name)
-
-# Get all versions of this registered model
-            all_versions = client.search_model_versions(f"name='{registered_model_name}'")
+            # all_versions = client.search_model_versions(f"name='{registered_model_name}'")
 
 
-            # latest_version = client.get_latest_versions(name=registered_model_name, stages=["None"])[0].version
-
-            # client.transition_model_version_stage(
-            # name=registered_model_name,
-            # version=latest_version,
-            # stage="Production",
-            # archive_existing_versions=True )
-            latest_version = sorted(all_versions, key=lambda x: int(x.version))[-1].version
-
-# Promote to Production and archive older versions
-            client.transition_model_version_stage(
-             name=registered_model_name,
-             version=latest_version,
-             stage="Production",
-             archive_existing_versions=True
-             )
             my_logger.info(f" {best_model_name} with accuracy {best_score} promoted to Production!")
+
+            return r_score
 
             my_logger.info("______Model Training and Evaluation Complete______")
         except Exception as e:
@@ -172,9 +156,14 @@ class ModelTrain :
             test_data = pd.read_csv(self.artifact.transformed_test_file)
             my_logger.info(f"data_loaded...and empty report {train_data.isnull().sum()}")
 
-            self.model_train(train_data=train_data)
-            my_logger.info("model trained...")
+            score = self.model_train(train_data=train_data)
+            my_logger.info(f"model trained... and returnin score {score}")
 
+            output_return = model_trainer_artifact(ml_model_path=self.config.ml_model_path,
+                                          pre_model_path=self.artifact.pre_model_path,
+                                          ml_model_f_score=score)
+            
+            return output_return
 
             my_logger.info("_____ initate Model Train ended_____")
         except Exception as e:
