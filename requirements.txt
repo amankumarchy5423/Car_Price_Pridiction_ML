@@ -66,12 +66,14 @@ executing==2.2.0
 fastapi==0.115.12
 filelock==3.18.0
 flask==3.1.0
+flask-cors==5.0.1
 flatten-dict==0.4.2
 flufl-lock==8.1.0
 fonttools==4.57.0
 frozenlist==1.6.0
 fsspec==2025.3.2
 funcy==2.0
+getenv==0.2.0
 gitdb==4.0.12
 gitpython==3.1.44
 google-auth==2.39.0

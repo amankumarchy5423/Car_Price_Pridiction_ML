@@ -4,7 +4,12 @@ from src.logging.logger import my_logger
 from flask import Flask, render_template, request
 import pandas as pd
 
-app = Flask(__name__)  # ✅ Corrected Flask app name
+from flask_cors import CORS
+
+app = Flask(__name__) 
+
+#  ENABLE CORS FOR ALL ORIGINS
+CORS(app)
 
 @app.route('/')
 def main():

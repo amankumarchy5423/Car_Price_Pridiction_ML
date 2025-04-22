@@ -38,8 +38,9 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+          
 
       - name: Run main.py
         run: |
-          set -e
+          echo "Running with DAGSHUB_TOKEN: ${DAGSHUB_TOKEN:0:4}****"
           python main.py
