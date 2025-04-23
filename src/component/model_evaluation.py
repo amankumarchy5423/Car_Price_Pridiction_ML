@@ -58,33 +58,39 @@ class ModelEvaluation:
                 my_logger.info("cloud model loaded into local")
             
             else :
-                MyException("bucket can't found, there some thing issue",sys)
+                my_logger.error("bucket can't found, there some thing issue")
 
             my_logger.info("___ load_cloud_model ended ___")
         except Exception as e:
             my_logger.error(e)
             MyException(e,sys)
 
-    def model_evaluation(self,x_test : pd.DataFrame) -> bool:
+    def model_evaluation(self,x_test : pd.DataFrame,model_persence : bool) -> bool:
         try:
             my_logger.info("___ model_evaluation started ___")
 
-            cloud_model = joblib.load(self.model_eval_config.cloud_to_local_path)
-            my_logger.info("cloud model loaded from local dir ")
+            if model_persence is True:
 
-            x_data = x_test.iloc[:,:-1]
-            y_data = x_test.iloc[:,-1]
+               cloud_model = joblib.load(self.model_eval_config.cloud_to_local_path)
+               my_logger.info("cloud model loaded from local dir ")
 
-            cloud_model_ypred = cloud_model.predict(x_data)
-            cloud_model_score = evaluate(cloud_model_ypred,y_data)
+               x_data = x_test.iloc[:,:-1]
+               y_data = x_test.iloc[:,-1]
+
+               cloud_model_ypred = cloud_model.predict(x_data)
+               cloud_model_score = evaluate(cloud_model_ypred,y_data)
             # my_logger.info(f"Predictions made local model: {self.model_trainer_artifact.ml_model_f_score}")
-            my_logger.info(f"cloud Model evaluation score: {cloud_model_score}")
+               my_logger.info(f"cloud Model evaluation score: {cloud_model_score}")
 
-            if self.trainer_artifact.ml_model_f_score > cloud_model_score :
-                my_logger.info("it means we need to upload our model on cloud")
+               if self.trainer_artifact.ml_model_f_score > cloud_model_score :
+                   my_logger.info("it means we need to upload our model on cloud")
+                   return True
+               else :
+                   return False
+            else:
+                my_logger.warning("Cloud model not found, skipping evaluation.")
+                my_logger.info("No cloud model present for evaluation.")
                 return True
-            else :
-                return False
 
             my_logger.info("___ model_evaluation ended ___")
         except Exception as e :
@@ -101,7 +107,7 @@ class ModelEvaluation:
 
             self.load_cloud_model(model_persence=model_presence)
 
-            report = self.model_evaluation(x_test=df)
+            report = self.model_evaluation(x_test=df,model_persence=model_presence)
             
             return model_evel_artifact(is_model_upload_cloud=report,
                                        cloud_model_path=self.model_eval_config.cloud_to_local_path)

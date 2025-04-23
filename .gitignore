@@ -180,3 +180,4 @@ myvenv/
 /Artifact
 /my_model
 mlruns/
+/cloud_model

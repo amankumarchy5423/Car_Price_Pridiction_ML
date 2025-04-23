@@ -1,0 +1,6 @@
+outs:
+- md5: aa883d822dd8cf844b11f46076a35eb5.dir
+  size: 232177
+  nfiles: 1
+  hash: md5
+  path: cloud_model
