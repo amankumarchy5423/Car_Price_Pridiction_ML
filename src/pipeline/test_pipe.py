@@ -13,6 +13,8 @@ from sklearn.preprocessing import StandardScaler
 from src.cloud.aws_conn import s3client
 from src.config.config import test_pipe_config
 
+from smart_open import open as s3open
+
 
 
 class test_pipe:
@@ -36,7 +38,7 @@ class test_pipe:
             my_logger.info("____ cloud_model_load start____")
             os.makedirs(self.config.production_model_dir,exist_ok=True)
             my_logger.info("directory created .....")
-            
+
             self.s3.s3_client.download_file(
                 Bucket=self.config.bucket_name,
                 Key = self.config.s3_pre_model_key_path,
