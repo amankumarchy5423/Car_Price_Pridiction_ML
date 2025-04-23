@@ -21,4 +21,8 @@ CLOUD_TO_LOCAL_MODEL_FILE = 'production_model.joblib'
 ML_MODEL_NAME_ON_DAGSHUB = 'Best-ml-model'
 PREMODEL_PUSHER_S3_KEY = 'models/car_price/preprocessor.joblib'
 
+TEST_PIPE_ML_MODEL_FILE = 'ml_model.joblib'
+TEST_PIPE_PRE_MODEL_FILE = 'pre_model.joblib'
+PRODUCTION_MODEL_DIR = 'productiuon_model'
+
 

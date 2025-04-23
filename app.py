@@ -32,6 +32,7 @@ def predict():
 
             # Step 3: Load model and predict
             obj = test_pipe()
+            obj.cloud_model_load()
             prediction = obj.load_model(df)
             print(f"[DEBUG] Prediction: {prediction}")
             my_logger.info(f"Prediction result: {prediction}")
