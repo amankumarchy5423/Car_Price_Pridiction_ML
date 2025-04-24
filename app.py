@@ -1,4 +1,5 @@
 from src.pipeline.test_pipe import test_pipe
+from src.pipeline.train_pipe import TrainPipeline
 from src.logging.logger import my_logger
 
 from flask import Flask, render_template, request
@@ -35,7 +36,7 @@ def predict():
             obj.cloud_model_load()
             prediction = obj.load_model(df)
             print(f"[DEBUG] Prediction: {prediction}")
-            my_logger.info(f"Prediction result: {prediction}")
+            my_logger.info(f"Prediction result: {prediction[0]}")
 
             # Step 4: Show result
             return render_template('predict.html', prediction=prediction)
@@ -46,6 +47,14 @@ def predict():
             return render_template('predict.html', prediction="Error occurred")
     
     return render_template('index.html')
+
+@app.route('/train')
+def train_model():
+    obj_train_pipe = TrainPipeline()
+    obj_train_pipe.initiate_train_pipe()
+
+    return render_template('train.html')
+
 
 if __name__ == '__main__':
     app.run(port= 5000, host='0.0.0.0')

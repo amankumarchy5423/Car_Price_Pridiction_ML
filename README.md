@@ -22,6 +22,9 @@ EC2 - For hosting the application in the cloud
 ECR - AWS Elastic Container Registry -> For storing Docker images of the application
 joblib - For saving and loading ML models
 Docker - For containerizing the app in production
+CICD - Continuous Integration and Continuous Deployment (CI/CD) tools like GitHub Actions are utilized for automating the deployment process.
+AWS Elastic Load Balancer - To distribute incoming application traffic across multiple targets, ensuring high availability and reliability.
+AWS Auto Scaling Group - To automatically adjust the number of EC2 instances based on traffic demands, ensuring optimal performance and cost efficiency.
 
 
 

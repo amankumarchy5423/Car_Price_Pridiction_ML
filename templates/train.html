@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Model</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Model Trainer</h2>
+        <p id="status">Click the button to start training your model.</p>
+        <div id="spinner" style="display: none;" class="spinner"></div>
+        <button class="btn" onclick="trainModel()">Train Model</button>
+    </div>
+
+    <script>
+        async function trainModel() {
+            const status = document.getElementById("status");
+            const spinner = document.getElementById("spinner");
+
+            status.innerText = "Training in progress...";
+            spinner.style.display = "block";
+
+            try {
+                const res = await fetch("/train");
+                const text = await res.text();
+
+                status.innerText = text || "Training Successfully Completed ✅";
+            } catch (err) {
+                status.innerText = "❌ Failed to train model.";
+                console.error(err);
+            }
+
+            spinner.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
