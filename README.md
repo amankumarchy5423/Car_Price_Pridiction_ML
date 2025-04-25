@@ -10,21 +10,22 @@ The app is built using Python and Flask for the web interface, and the machine l
 
 ##  Tools & Technologies Used
 
-Python - Core programming language
-Flask - Web framework to create the application UI
-Scikit-learn - For preprocessing and building ML models
-Git and Github - For code tracking and code versioning
-MLflow - To track model training and versions
-DVC - uses for data versioning and data tracking
-Dagshub - used for collaborative version control with mlflow , dvc and github
-AWS S3 - To store trained models and load them during inference
-EC2 - For hosting the application in the cloud
-ECR - AWS Elastic Container Registry -> For storing Docker images of the application
-joblib - For saving and loading ML models
-Docker - For containerizing the app in production
-CICD - Continuous Integration and Continuous Deployment (CI/CD) tools like GitHub Actions are utilized for automating the deployment process.
-AWS Elastic Load Balancer - To distribute incoming application traffic across multiple targets, ensuring high availability and reliability.
-AWS Auto Scaling Group - To automatically adjust the number of EC2 instances based on traffic demands, ensuring optimal performance and cost efficiency.
+1.Python - Core programming language
+2.Flask - Web framework to create the application UI
+3.Scikit-learn - For preprocessing and building ML models
+4.Git and Github - For code tracking and code versioning
+5.MLflow - To track model training and versions
+6.DVC - uses for data versioning and data tracking
+7.Dagshub - used for collaborative version control with mlflow , dvc and github
+8.AWS S3 - To store trained models and load them during inference
+9.EC2 - For hosting the application in the cloud
+10.ECR - AWS Elastic Container Registry -> For storing Docker images of the application
+11.joblib - For saving and loading ML models
+12.Docker - For containerizing the app in production
+13.Kubernetes - For runing multipule microservices on cloud
+13.Github Action - Continuous Integration and Continuous Deployment (CI/CD) tools like GitHub Actions are utilized for automating the deployment process.
+14.AWS Elastic Load Balancer - To distribute incoming application traffic across multiple targets, ensuring high availability and reliability.
+15.AWS Auto Scaling Group - To automatically adjust the number of EC2 instances based on traffic demands, ensuring optimal performance and cost efficiency.
 
 
 
